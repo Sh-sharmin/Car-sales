@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class='p-3'>
+    <a class="btn btn-info" href="{% url 'edit_profile' %}"> Edit Your Profile</a>
+    <a class="btn btn-info" href="{% url 'pass_change' %}"> Change Password</a>
+    <br><br>
+    <hr>
+    <br>
+    <h3>Purchased Cars:</h3>
+    <div class="row">
+        {% for order in orders %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ order.car.image.url }}" class="card-img-top" alt="{{ order.car.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ order.car.title }}</h5>
+                    <p class="card-text"><strong>Price:</strong> ${{ order.car.price }}</p>
+                    <p class="card-text"><strong>Brand:</strong> {{ order.car.brand.name }}</p>
+                    <a href="{% url 'car_details' order.car.id %}" class="btn btn-info">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No cars purchased yet.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

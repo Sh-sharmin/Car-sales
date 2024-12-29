@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container row m-5 p-3">
+    <div class="col-6">
+        <p>
+            Looking for your dream car? You’re in the right place! At [Your Website Name], we offer an extensive range of vehicles to suit every style, need, and budget. Whether you're searching for a brand-new ride, a reliable used car, or the latest luxury model, we have it all under one roof.
+    <br><br>
+    <strong>Why Choose Us?</strong>
+    <br>
+    <ul>
+        <li>Wide Selection: From compact cars to SUVs, discover a variety of vehicles that fit your lifestyle.</li>Wide Selection: From compact cars to SUVs, discover a variety of vehicles that fit your lifestyle.
+        <li>Affordable Prices: Competitive pricing and exclusive deals ensure you get the best value for your money.</li>
+        <li>Quality Assurance: Every vehicle is thoroughly inspected to guarantee quality and reliability.</li>
+        <li>Easy Financing: Flexible financing options make it easier than ever to own your dream car.</li>
+    </ul>
+
+    we don’t just sell cars—we build trust and long-term relationships with our customers. Explore our inventory, schedule a test drive, or chat with our team for personalized assistance.
+
+    Start your journey today with US. Let’s drive your dreams home!
+            </p>
+        </div>
+    <div class="col-6">
+        <img src ="{%static 'image.jpg' %}" alt = "Car Image"class="img-fluid"/>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2>Our Cars</h2>
+    <div class="mb-4">
+        <strong>Filter by Brand:</strong>
+        <ul class="list-inline">
+            <li class="list-inline-item p-3 m-4">
+                <a href="{% url 'homepage' %}" class="btn btn-info text-decoration-none text-dark">See All Brands</a>
+            </li>
+            {% for brand in brands %}
+                <li class="list-inline-item p-3 m-4">
+                    <a href="?brand={{ brand.name }}" class="btn btn-info text-decoration-none text-dark">{{ brand.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="row">
+        <h4><strong>Total car found: {{cars | length}}</strong></h4>
+        {% for car in cars %}
+        <div class="col-3 m-3">
+            <div class="card" style="width: 350px; height:430px">
+                <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ car.title }}</h5>
+                    <p class="card-text"><strong>Price:</strong> ${{ car.price }}</p>
+                    <p class="card-text"><strong>Brand:</strong> {{ car.brand.name }}</p>
+                    <a href="{% url 'car_details' car.id %}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
